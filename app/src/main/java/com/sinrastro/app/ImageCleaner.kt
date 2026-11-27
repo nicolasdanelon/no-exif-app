@@ -45,8 +45,9 @@ object ImageCleaner {
         val outputName = availableName(context, extension)
 
         val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        resolver.openInputStream(source)?.use { BitmapFactory.decodeStream(it, null, bounds) }
+        val boundsStream = resolver.openInputStream(source)
             ?: throw IllegalArgumentException("No se pudo leer la imagen.")
+        boundsStream.use { BitmapFactory.decodeStream(it, null, bounds) }
         if (bounds.outWidth <= 0 || bounds.outHeight <= 0) {
             throw IllegalArgumentException("El archivo no es una imagen compatible.")
         }

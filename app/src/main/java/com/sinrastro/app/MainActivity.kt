@@ -105,7 +105,7 @@ class MainActivity : Activity() {
         val mark = FrameLayout(this).apply {
             background = rounded(color(0xFF246B4B), 15f)
         }
-        mark.addView(SymbolView(this, "shield", color(0xFFFFFFFF)).apply {
+        mark.addView(SymbolView(this, "shield", color(0xFFFFFFFF), strokeWidthDp = 1.55f).apply {
             layoutParams = FrameLayout.LayoutParams(dp(26), dp(26), Gravity.CENTER)
         })
         row.addView(mark, LinearLayout.LayoutParams(dp(46), dp(46)))
@@ -147,7 +147,7 @@ class MainActivity : Activity() {
         val iconDisc = FrameLayout(this).apply {
             background = rounded(color(0xFF315849), 50f)
         }
-        iconDisc.addView(SymbolView(this, "shield", color(0xFFBDE6C8)).apply {
+        iconDisc.addView(SymbolView(this, "shield", color(0xFFBDE6C8), strokeWidthDp = 1.55f).apply {
             layoutParams = FrameLayout.LayoutParams(dp(28), dp(28), Gravity.CENTER)
         })
         topRow.addView(iconDisc, LinearLayout.LayoutParams(dp(44), dp(44)))
@@ -289,7 +289,10 @@ class MainActivity : Activity() {
         LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
             gravity = Gravity.CENTER
-            addView(SymbolView(this@MainActivity, "lock", color(0xFF728277)), LinearLayout.LayoutParams(dp(15), dp(15)))
+            addView(
+                SymbolView(this@MainActivity, "lock", color(0xFF728277), strokeWidthDp = 1.55f),
+                LinearLayout.LayoutParams(dp(15), dp(15))
+            )
             addView(text("  Sin cuentas ni subidas. Todo queda en tu teléfono.", 11f, color(0xFF77847A)))
         }
 
@@ -537,12 +540,13 @@ class MainActivity : Activity() {
 private class SymbolView(
     context: android.content.Context,
     private val symbol: String,
-    private val tint: Int
+    private val tint: Int,
+    strokeWidthDp: Float = 2.1f
 ) : View(context) {
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = tint
         style = Paint.Style.STROKE
-        strokeWidth = 2.1f * resources.displayMetrics.density
+        strokeWidth = strokeWidthDp * resources.displayMetrics.density
         strokeCap = Paint.Cap.ROUND
         strokeJoin = Paint.Join.ROUND
     }
